@@ -11,11 +11,11 @@ jobs:
 
     steps:
       - name: Checkout repository
-       uses: actions/checkout@v4
+        uses: actions/checkout@v4
       - name: Deploy the app
-       uses: digitalocean/app_action/deploy@v2
-       with:
-         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+        uses: digitalocean/app_action/deploy@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
