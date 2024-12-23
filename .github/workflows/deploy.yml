@@ -39,7 +39,7 @@ jobs:
           SOURCE: "."
           REMOTE_HOST: ${{ secrets.VPS_HOST }}
           REMOTE_USER: ${{ secrets.VPS_USER }}
-          TARGET: "/home/paysoko-app.test"
+          TARGET: "/home/laravel/paysoko-app.test"
 
       - name: Run Remote Cmd
         uses: appleboy/ssh-action@v0.1.6
@@ -48,7 +48,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/paysoko-app.test
+            cd /home/laravel/paysoko-app.test
             sail up -d
             sail artisan migrate --force
             sail artisan optimize
