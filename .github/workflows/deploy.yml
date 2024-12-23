@@ -10,8 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+       uses: actions/checkout@v4
+      - name: Deploy the app
+       uses: digitalocean/app_action/deploy@v2
+       with:
+         token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -50,5 +54,5 @@ jobs:
           script: |
             cd /home/paysoko-app.test
             docker compose up -d
-            docker exec app php artisan migrate --force
-            docker exec app php artisan optimize
+            docker compose run --rm artisan migrate --force
+            docker compose run --rm artisan optimize
