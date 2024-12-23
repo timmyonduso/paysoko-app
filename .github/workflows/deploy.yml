@@ -49,5 +49,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/paysoko-app.test
+            sail up -d
             sail artisan migrate --force
             sail artisan optimize
