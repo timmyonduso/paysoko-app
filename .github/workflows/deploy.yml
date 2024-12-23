@@ -30,9 +30,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/paysoko-app.test
-            composer require laravel/sail --dev
-            php artisan sail:install
-            sail up -d
-            sail artisan migrate --force
-            sail artisan optimize
+            docker-compose up -d
+            docker exec app php artisan migrate --force
+            docker exec app php artisan optimize
             
