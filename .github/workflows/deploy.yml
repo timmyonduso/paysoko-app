@@ -13,25 +13,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.2
-
-      - name: Install Composer Deps
-        run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-
-      - name: Install npm
-        run: npm install
-
-      - name: Build assets
-        run: npm run build
-
       - name: Sync files with server
         uses: easingthemes/ssh-deploy@v5.1.0
         env:
@@ -39,7 +20,7 @@ jobs:
           SOURCE: "."
           REMOTE_HOST: ${{ secrets.VPS_HOST }}
           REMOTE_USER: ${{ secrets.VPS_USER }}
-          TARGET: "/home/laravel/paysoko-app.test"
+          TARGET: "/home/paysoko-app.test"
 
       - name: Run Remote Cmd
         uses: appleboy/ssh-action@v0.1.6
@@ -48,7 +29,10 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/laravel/paysoko-app.test
+            cd /home/paysoko-app.test
+            composer require laravel/sail --dev
+            php artisan sail:install
             sail up -d
             sail artisan migrate --force
             sail artisan optimize
+            
