@@ -26,7 +26,10 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install npm deps
+      - name: Install npm
+        run: npm install
+
+      - name: Build assets
         run: npm run build
 
       - name: Sync files with server
