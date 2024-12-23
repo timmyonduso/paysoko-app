@@ -30,7 +30,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/paysoko-app.test
-            docker-compose up -d
+            docker compose up -d
             docker exec app php artisan migrate --force
             docker exec app php artisan optimize
             
