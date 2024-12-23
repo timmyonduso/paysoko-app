@@ -13,6 +13,25 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+
+      - name: Install Composer Deps
+        run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install npm
+        run: npm install
+
+      - name: Build assets
+        run: npm run build
+
       - name: Sync files with server
         uses: easingthemes/ssh-deploy@v5.1.0
         env:
@@ -33,4 +52,3 @@ jobs:
             docker compose up -d
             docker exec app php artisan migrate --force
             docker exec app php artisan optimize
-            
