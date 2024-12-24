@@ -27,7 +27,7 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Build container image using docker-compose
-        run: docker-compose -f docker-compose.yml build laravel.test
+        run: docker compose -f docker-compose.yml build laravel.test
 
       - name: Retag the image
         run: docker tag sail-8.4/app $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7)
