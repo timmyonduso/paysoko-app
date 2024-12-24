@@ -26,10 +26,6 @@ jobs:
       - name: Checkout the repo 
         uses: actions/checkout@v3
         
-      - name: Install dependencies
-        run: |
-          /bin/bash -c "$(curl -fsSL https://php.new/install/linux/8.4)" | composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
-        
       - name: Build container image
         run: docker build -t $(echo $REGISTRY)/$(echo $IMAGE_NAME):$(echo $GITHUB_SHA | head -c7) -f ./vendor/laravel/sail/runtimes/8.4/Dockerfile .
 
